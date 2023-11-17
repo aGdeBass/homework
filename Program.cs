@@ -1,11 +1,5 @@
 ﻿using System.Globalization;
 
-
-string test = @"2 3
-1 2 3
-4 5 6"
-
-Console.SetIn( new StringReader(test1));
 int [] wymiary = Array.ConvertAll(Console.ReadLine().Split(" "), int.Parse);
 var n = wymiary[0]; // wierszy
 var m = wymiary[1]; // kolumne
