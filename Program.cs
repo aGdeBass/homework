@@ -1,28 +1,53 @@
-﻿using System.ComponentModel.Design.Serialization;
-using System.Dynamic;
-using System.Formats.Asn1;
-/// <summary>
-/// Oblicza obwód trójkąta dowolnego dla zadanych długości boków, zaokrąglając wynik do podanej liczby cyfr po przecinku
-/// </summary>
-/// <param name="a">długość pierwszego boku, liczba całkowita nieujemna</param>
-/// <param name="b">długość drugiego boku, liczba całkowita nieujemna</param>
-/// <param name="c">długość trzeciego boku, liczba całkowita nieujemna</param>
-/// <param name="precision">dokładność obliczeń (zaokrąglenie), liczba cyfr po przecinku (od 2 do 8)</param>
-/// <returns>obwód trójkąta obliczony z zadaną dokładnością</returns>
-/// <exception cref="ArgumentOutOfRangeException">z komunikatem "wrong arguments", 
-///     gdy <c>precision</c> jest poza przedziałem od 2 do 8 lub którakolwiek z długości jest ujemna</exception>    
-/// <exception cref="ArgumentException">z komunikatem "object not exist", gdy trójkąta nie można utworzyć</exception>
-/// <remarks>dopuszczamy trójkąt o pokrywających się bokach lub o wszystkich bokach o długości 0</remarks>
-/// 
+﻿using System.Globalization;
 
 
+string test = @"2 3
+1 2 3
+4 5 6"
 
-static double TrianglePerimeter(int a, int b, int c, int precision=2)
+Console.SetIn( new StringReader(test1));
+int [] wymiary = Array.ConvertAll(Console.ReadLine().Split(" "), int.Parse);
+var n = wymiary[0]; // wierszy
+var m = wymiary[1]; // kolumne
+
+int [,] a = new int[n,m];
+
+for (int i = 0; i < n; i++)
 {
-    if(a < 0 || b < 0 || c < 0) throw new ArgumentException("wrong arguments");
-    if(a + b < c || b + c < a || c + a < b ) throw new ArgumentException("wrong arguments");
-    if(precision < 2 || precision > 8) throw new ArgumentException("object not exist");
+    //czytaj i-ty wiersz
 
-    var area = a + b + c;
-    return area;
+    var wiersz = Array.ConvertAll(Console.ReadLine().Split(" "), int.Parse);
+
+    //wypełnij tablice a wczytamy dane
+    for (int j = 0 ; j < m; j++)
+    {
+        a[i,j] = wiersz[j];
+    }
+} 
+
+
+PrintMatrixTranspored(a);
+
+void PrintMatrix(int[,] matrix)
+{
+    for (int wiersz = 0; wiersz < matrix.GetLength(0); wiersz++)
+    {
+        for (int kolumna = 0; kolumna < matrix.GetLength(1); kolumna++)
+        {
+            Console.Write(matrix[wiersz, kolumna] + " ");
+        }
+        Console.WriteLine();
+    }
+}
+
+void PrintMatrixTranspored(int[,] matrix)
+{
+    for (int kolumna = 0; kolumna < matrix.GetLength(1); kolumna++)
+    {
+        for (int wiersz = 0; wiersz < matrix.GetLength(0); wiersz++)
+        {
+            Console.Write(matrix[kolumna, wiersz] + " ");
+        }
+        Console.WriteLine();
+    }
 }
