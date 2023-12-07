@@ -13,7 +13,7 @@ def checkRegister(register): # Sprawdza typ rejestru i zwraca jego rozmiar i num
         return [8, R8.index(register)]
     elif register in R16:
         return [16, R16.index(register)]
-    elif register in R8:
+    elif register in R32:
         return [32, R32.index(register)]
     else:
         return [1, "Nieprawidłowy rejestr"]
@@ -144,7 +144,7 @@ def andBlock(reg1, reg2):
         
         else:
             return "Coś poszło niezgodnie z planem" # jak coś pójdzie nie tak
-    
+            
     else: # pamięć
         returnReg1 = checkRegister(reg1.upper())
         returnReg2 = checkRegister(reg2[1:-1].upper())
